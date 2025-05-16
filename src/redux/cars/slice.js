@@ -2,9 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 import { fetchCarById, fetchCars } from "./operations";
 
 const initialState = {
-  cars: [],
+  items: {
+    cars: [],
+    totalCars: 0,
+    totalPages: 0,
+    currentPage: 1,
+  },
   selectedCar: null,
-  status: "idle",
+  isLoading: false,
   error: null,
 };
 
@@ -15,30 +20,34 @@ const carsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchCars.pending, (state) => {
-        state.status = "loading";
+        state.isLoading = true;
         state.error = null;
       })
       .addCase(fetchCars.fulfilled, (state, action) => {
-        state.status = "success";
-        state.cars = [...state.cars, ...action.payload];
+        state.isLoading = false;
+        state.items = {
+          cars: action.payload.cars,
+          totalCars: action.payload.totalCars,
+          totalPages: action.payload.totalPages,
+          currentPage: action.payload.page,
+        };
       })
       .addCase(fetchCars.rejected, (state, action) => {
-        state.status = "error";
+        state.isLoading = false;
         state.error = action.payload;
       })
       .addCase(fetchCarById.pending, (state) => {
-        state.status = "loading";
+        state.isLoading = true;
         state.error = null;
         state.selectedCar = null;
       })
       .addCase(fetchCarById.fulfilled, (state, action) => {
-        state.status = "succeeded";
+        state.isLoading = false;
         state.selectedCar = action.payload;
       })
       .addCase(fetchCarById.rejected, (state, action) => {
-        state.status = "failed";
+        state.isLoading = false;
         state.error = action.payload;
-        state.selectedCar = null;
       });
   },
 });

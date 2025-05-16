@@ -6,7 +6,7 @@ const initialState = {
   rentalPrice: "",
   mileageFrom: "",
   mileageTo: "",
-  status: "idle",
+  isLoading: false,
   error: null,
 };
 
@@ -27,15 +27,15 @@ const filtersSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchBrands.pending, (state) => {
-        state.status = "loading";
+        state.isLoading = true;
         state.error = null;
       })
       .addCase(fetchBrands.fulfilled, (state, action) => {
-        state.status = "succeeded";
+        state.isLoading = false;
         state.brands = action.payload;
       })
       .addCase(fetchBrands.rejected, (state, action) => {
-        state.status = "failed";
+        state.isLoading = false;
         state.error = action.payload;
       });
   },
