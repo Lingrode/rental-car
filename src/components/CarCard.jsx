@@ -26,7 +26,7 @@ const CarCard = ({ car }) => {
   const formattedMileage = formatMileage(mileage);
 
   return (
-    <Card className="w-full max-w-min rounded-none border-0 shadow-none gap-4">
+    <Card className="flex flex-col gap-4 h-full shadow-none p-0 border-0">
       <Link to={`/catalog/${id}`}>
         <div className="relative h-[268px] rounded-2xl overflow-hidden">
           <img
@@ -37,32 +37,29 @@ const CarCard = ({ car }) => {
           <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(18,20,23,0.5)_2.5%,rgba(18,20,23,0)_41.07%)] pointer-events-none rounded-2xl" />
         </div>
       </Link>
-      <CardContent className="p-0 mb-4">
-        <Link to={`/catalog/${id}`}>
-          <div className="flex justify-between text-xl font-semibold mb-2">
-            <span>
-              {brand} <span className="text-blue-500">{model}</span>, {year}
-            </span>
-            <span>${rentalPrice}</span>
+
+      <div className="flex-grow flex flex-col justify-between">
+        <CardContent className="p-0 mb-8 flex flex-col gap-2 flex-grow">
+          <Link to={`/catalog/${id}`}>
+            <div className="flex justify-between text-base font-semibold">
+              <span>
+                {brand} <span className="text-blue-500">{model}</span>, {year}
+              </span>
+              <span>${rentalPrice}</span>
+            </div>
+          </Link>
+          <div className="text-xs text-muted-foreground">
+            {formattedAddress} | {rentalCompany} <br />
+            {type} | {formattedMileage}
           </div>
-        </Link>
-        <div className="text-xs text-muted-foreground">
-          {formattedAddress} | {rentalCompany} | <br /> {type} |{" "}
-          {formattedMileage}
-        </div>
-        {/* <div className="flex flex-wrap gap-2 mt-2">
-          {accessories.slice(0, 3).map((item, index) => (
-            <Badge key={index} variant="outline">
-              {item}
-            </Badge>
-          ))}
-        </div> */}
-      </CardContent>
-      <CardFooter className="p-0">
-        <Button asChild size="lg">
-          <Link to={`/catalog/${id}`}>Read More</Link>
-        </Button>
-      </CardFooter>
+        </CardContent>
+
+        <CardFooter className="p-0 mt-auto">
+          <Button asChild size="lg" className="w-full">
+            <Link to={`/catalog/${id}`}>Read More</Link>
+          </Button>
+        </CardFooter>
+      </div>
     </Card>
   );
 };

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -11,10 +11,22 @@ const Header = () => {
           </h1>
         </Link>
         <nav className="space-x-4">
-          <Link to="/" className="text-blue-600">
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              isActive ? "text-[#0B44CD]" : "text-[#101828]"
+            }
+          >
             Home
-          </Link>
-          <Link to="/catalog">Catalog</Link>
+          </NavLink>
+          <NavLink
+            to="/catalog"
+            className={({ isActive }) =>
+              isActive ? "text-[#0B44CD]" : "text-[#101828]"
+            }
+          >
+            Catalog
+          </NavLink>
         </nav>
       </div>
     </header>

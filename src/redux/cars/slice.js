@@ -24,13 +24,19 @@ const carsSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchCars.fulfilled, (state, action) => {
+        const { cars, totalCars, totalPages, page } = action.payload;
+
         state.isLoading = false;
-        state.items = {
-          cars: action.payload.cars,
-          totalCars: action.payload.totalCars,
-          totalPages: action.payload.totalPages,
-          currentPage: action.payload.page,
-        };
+
+        if (page > 1) {
+          state.items.cars.push(...cars);
+        } else {
+          state.items.cars = cars;
+        }
+
+        state.items.totalCars = totalCars;
+        state.items.totalPages = totalPages;
+        state.items.currentPage = page;
       })
       .addCase(fetchCars.rejected, (state, action) => {
         state.isLoading = false;
