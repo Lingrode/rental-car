@@ -44,7 +44,7 @@ const BookForm = () => {
         value={form.name}
         onChange={handleChange}
         required
-        className="border-none shadow-none bg-[#F7F7F7] h-[48px] px-5"
+        className="h-[48px] px-5"
       />
       <Input
         name="email"
@@ -53,7 +53,7 @@ const BookForm = () => {
         value={form.email}
         onChange={handleChange}
         required
-        className="border-none shadow-none bg-[#F7F7F7] h-[48px] px-5"
+        className="h-[48px] px-5"
       />
       <Input
         name="date"
@@ -61,7 +61,7 @@ const BookForm = () => {
         value={form.date}
         onChange={handleChange}
         min={new Date().toISOString().split("T")[0]}
-        className="border-none shadow-none bg-[#F7F7F7] h-[48px] px-5"
+        className="h-[48px] px-5"
       />
       <Textarea
         name="comment"

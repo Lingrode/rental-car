@@ -45,13 +45,18 @@ const FiltersForm = () => {
     >
       <div className="flex flex-col">
         <label className="mb-1 text-sm text-muted-foreground">Car brand</label>
-        <Select onValueChange={setBrand} defaultValue="">
-          <SelectTrigger className="w-[150px]">
+        <Select
+          onValueChange={(val) => {
+            setBrand(val === "any" ? "" : val);
+          }}
+          value={brand || ""}
+        >
+          <SelectTrigger size="" className="w-[204px] bg-[#F7F7F7] h-[44px]">
             <SelectValue placeholder="Choose a brand" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="border-none">
             <SelectGroup>
-              {/* <SelectItem value="Choose a brand">All brands</SelectItem> */}
+              <SelectItem value="any">All brands</SelectItem>
               {brands.map((brand) => (
                 <SelectItem key={brand} value={brand}>
                   {brand}
@@ -72,14 +77,15 @@ const FiltersForm = () => {
           }}
           value={rentalPrice?.toString() || ""}
         >
-          <SelectTrigger className="w-[150px]">
-            <SelectValue placeholder="Choose a price" />
+          <SelectTrigger size="" className="w-[204px] h-[44px] bg-[#F7F7F7]">
+            {/* <SelectValue placeholder="Choose a price" /> */}
+            <span>{rentalPrice ? `To $${rentalPrice}` : "Choose a price"}</span>
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
               <SelectItem value="any">Any</SelectItem>
               {priceOptions.map((p) => (
-                <SelectItem key={p} value={p.toString()}>
+                <SelectItem key={p} value={`${p.toString()}`}>
                   {p}
                 </SelectItem>
               ))}
@@ -92,13 +98,13 @@ const FiltersForm = () => {
         <label className="mb-1 text-sm text-muted-foreground">
           Car mileage / km
         </label>
-        <div className="flex gap-2">
+        <div className="flex">
           <Input
             type="number"
             placeholder="From"
             value={minMileage}
             onChange={(e) => setMinMileage(e.target.value)}
-            className="w-[70px]"
+            className="w-[160px] rounded-r-none border-0 border-r !border-[#DADDE1] h-[44px]"
             min={0}
           />
           <Input
@@ -106,7 +112,7 @@ const FiltersForm = () => {
             placeholder="To"
             value={maxMileage}
             onChange={(e) => setMaxMileage(e.target.value)}
-            className="w-[70px]"
+            className="w-[160px] rounded-l-none h-[44px]"
             min={0}
           />
         </div>
