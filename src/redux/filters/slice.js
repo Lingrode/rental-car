@@ -1,13 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchBrands } from "../cars/operations";
 
 const initialState = {
   brand: "",
   rentalPrice: "",
-  mileageFrom: "",
-  mileageTo: "",
-  isLoading: false,
-  error: null,
+  minMileage: "",
+  maxMileage: "",
 };
 
 const filtersSlice = createSlice({
@@ -15,29 +12,11 @@ const filtersSlice = createSlice({
   initialState,
   reducers: {
     setFilters(state, action) {
-      Object.assign(state, action.payload);
+      return { ...state, ...action.payload };
     },
-    clearFilters(state) {
-      state.brand = "";
-      state.rentalPrice = "";
-      state.mileageFrom = "";
-      state.mileageTo = "";
+    clearFilters() {
+      return initialState;
     },
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchBrands.pending, (state) => {
-        state.isLoading = true;
-        state.error = null;
-      })
-      .addCase(fetchBrands.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.brands = action.payload;
-      })
-      .addCase(fetchBrands.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.payload;
-      });
   },
 });
 
