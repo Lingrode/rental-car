@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -14,28 +13,26 @@ import { Button } from "@/components/ui/button";
 
 import { selectBrands } from "@/redux/brands/selectors";
 import { setFilters } from "@/redux/filters/slice";
+import { selectFilters } from "@/redux/filters/selectors";
+import { fetchCars } from "@/redux/cars/operations";
+import { clearCars } from "@/redux/cars/slice";
+
+import { getActiveFilters } from "@/utils/getActiveFilters";
 
 const priceOptions = [30, 40, 50, 60, 70, 80];
 
 const FiltersForm = () => {
   const dispatch = useDispatch();
   const brands = useSelector(selectBrands);
+  const filters = useSelector(selectFilters);
 
-  const [brand, setBrand] = useState("");
-  const [rentalPrice, setRentalPrice] = useState("");
-  const [minMileage, setMinMileage] = useState("");
-  const [maxMileage, setMaxMileage] = useState("");
+  const { brand, rentalPrice, minMileage, maxMileage } =
+    useSelector(selectFilters);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(
-      setFilters({
-        brand,
-        rentalPrice,
-        minMileage,
-        maxMileage,
-      })
-    );
+    dispatch(clearCars());
+    dispatch(fetchCars({ ...getActiveFilters(filters) }));
   };
 
   return (
@@ -47,9 +44,9 @@ const FiltersForm = () => {
         <label className="mb-1 text-sm text-muted-foreground">Car brand</label>
         <Select
           onValueChange={(val) => {
-            setBrand(val === "any" ? "" : val);
+            dispatch(setFilters({ brand: val === "any" ? "" : val }));
           }}
-          value={brand || ""}
+          value={brand}
         >
           <SelectTrigger size="" className="w-[204px] bg-[#F7F7F7] h-[44px]">
             <SelectValue placeholder="Choose a brand" />
@@ -73,20 +70,21 @@ const FiltersForm = () => {
         </label>
         <Select
           onValueChange={(val) => {
-            setRentalPrice(val === "any" ? "" : Number(val));
+            // setRentalPrice(val === "any" ? "" : Number(val));
+            dispatch(setFilters({ rentalPrice: val === "any" ? "" : val }));
           }}
+          // onValueChange={(val) => updateParams("rentalPrice", val)}
           value={rentalPrice?.toString() || ""}
         >
           <SelectTrigger size="" className="w-[204px] h-[44px] bg-[#F7F7F7]">
-            {/* <SelectValue placeholder="Choose a price" /> */}
             <span>{rentalPrice ? `To $${rentalPrice}` : "Choose a price"}</span>
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
               <SelectItem value="any">Any</SelectItem>
-              {priceOptions.map((p) => (
-                <SelectItem key={p} value={`${p.toString()}`}>
-                  {p}
+              {priceOptions.map((price) => (
+                <SelectItem key={price} value={`${price.toString()}`}>
+                  {price}
                 </SelectItem>
               ))}
             </SelectGroup>
@@ -103,7 +101,9 @@ const FiltersForm = () => {
             type="number"
             placeholder="From"
             value={minMileage}
-            onChange={(e) => setMinMileage(e.target.value)}
+            onChange={(e) =>
+              dispatch(setFilters({ minMileage: e.target.value }))
+            }
             className="w-[160px] rounded-r-none border-0 border-r !border-[#DADDE1] h-[44px]"
             min={0}
           />
@@ -111,7 +111,9 @@ const FiltersForm = () => {
             type="number"
             placeholder="To"
             value={maxMileage}
-            onChange={(e) => setMaxMileage(e.target.value)}
+            onChange={(e) =>
+              dispatch(setFilters({ maxMileage: e.target.value }))
+            }
             className="w-[160px] rounded-l-none h-[44px]"
             min={0}
           />

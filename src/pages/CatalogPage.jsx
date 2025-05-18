@@ -16,12 +16,14 @@ import {
 import { selectFilters } from "@/redux/filters/selectors";
 import { fetchBrands, fetchCars } from "@/redux/cars/operations";
 
+import { getActiveFilters } from "@/utils/getActiveFilters";
+
 const CatalogPage = () => {
   const dispatch = useDispatch();
 
   const cars = useSelector(selectCars);
-  const isLoading = useSelector(selectIsLoading);
   const filters = useSelector(selectFilters);
+  const isLoading = useSelector(selectIsLoading);
   const totalPages = useSelector(selectTotalPages);
   const currPage = useSelector(selectCurrentPage);
 
@@ -30,12 +32,17 @@ const CatalogPage = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(fetchCars({ ...filters, page: 1 }));
-  }, [dispatch, filters]);
+    dispatch(fetchCars({ page: 1 }));
+  }, [dispatch]);
 
   const handleLoadMore = () => {
     if (currPage < totalPages) {
-      dispatch(fetchCars({ ...filters, page: +currPage + 1 }));
+      dispatch(
+        fetchCars({
+          ...getActiveFilters(filters),
+          page: +currPage + 1,
+        })
+      );
     }
   };
 

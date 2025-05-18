@@ -1,12 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { Card, CardContent, CardFooter } from "./ui/card";
-import { Badge } from "./ui/badge";
-import { Button } from "./ui/button";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 
 import { formatAddress } from "@/utils/formatAddress";
 import { formatMileage } from "@/utils/formatMileage";
+import FavoriteButton from "./FavoriteButton";
 
 const CarCard = ({ car }) => {
   const {
@@ -27,16 +28,15 @@ const CarCard = ({ car }) => {
 
   return (
     <Card className="flex flex-col gap-4 h-full shadow-none p-0 border-0">
-      <Link to={`/catalog/${id}`}>
-        <div className="relative h-[268px] rounded-2xl overflow-hidden">
-          <img
-            src={img}
-            alt={`${brand} ${model}`}
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(18,20,23,0.5)_2.5%,rgba(18,20,23,0)_41.07%)] pointer-events-none rounded-2xl" />
-        </div>
-      </Link>
+      <div className="relative h-[268px] rounded-2xl overflow-hidden">
+        <FavoriteButton carId={id} />
+        <img
+          src={img}
+          alt={`${brand} ${model}`}
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(18,20,23,0.5)_2.5%,rgba(18,20,23,0)_41.07%)] pointer-events-none rounded-2xl" />
+      </div>
 
       <div className="flex-grow flex flex-col justify-between">
         <CardContent className="p-0 mb-8 flex flex-col gap-2 flex-grow">
