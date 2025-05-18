@@ -14,7 +14,9 @@ const Header = () => {
           <NavLink
             to="/"
             className={({ isActive }) =>
-              isActive ? "text-[#0B44CD]" : "text-[#101828]"
+              `${
+                isActive ? "text-[#0B44CD]" : "text-[#101828]"
+              } hover:text-[#0B44CD]`
             }
           >
             Home
@@ -22,7 +24,9 @@ const Header = () => {
           <NavLink
             to="/catalog"
             className={({ isActive }) =>
-              isActive ? "text-[#0B44CD]" : "text-[#101828]"
+              `${
+                isActive ? "text-[#0B44CD]" : "text-[#101828]"
+              } hover:text-[#0B44CD]`
             }
           >
             Catalog

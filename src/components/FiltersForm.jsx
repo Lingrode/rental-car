@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import iziToast from "izitoast";
 
 import {
   Select,
@@ -31,6 +32,15 @@ const FiltersForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (minMileage && maxMileage && Number(minMileage) > Number(maxMileage)) {
+      iziToast.error({
+        title: "Invalid range",
+        message: "Minimum mileage cannot be greater than maximum.",
+        position: "topRight",
+      });
+      return;
+    }
+
     dispatch(clearCars());
     dispatch(fetchCars({ ...getActiveFilters(filters) }));
   };
@@ -43,6 +53,7 @@ const FiltersForm = () => {
       <div className="flex flex-col">
         <label className="mb-1 text-sm text-muted-foreground">Car brand</label>
         <Select
+          id="brand"
           onValueChange={(val) => {
             dispatch(setFilters({ brand: val === "any" ? "" : val }));
           }}

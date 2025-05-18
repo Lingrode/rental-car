@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import BookForm from "@/components/BookForm";
 import Header from "@/components/Header";
+import Loader from "@/components/Loader";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
@@ -32,10 +33,10 @@ const CarDetailsPage = () => {
     dispatch(fetchCarById(id));
   }, [dispatch, id]);
 
-  if (isLoading) return <p className="text-center mt-20">Loading...</p>;
+  if (isLoading || !car) return <Loader />;
   if (error)
     return <p className="text-center text-red-500 mt-20">Error: {error}</p>;
-  if (!car) return null;
+  // if (!car) return <p>Loading car data...</p>;
 
   const {
     img,
