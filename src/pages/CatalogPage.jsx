@@ -33,7 +33,8 @@ const CatalogPage = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(fetchCars({ page: 1 }));
+    dispatch(fetchCars({ ...getActiveFilters(filters), page: 1 }));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
   const handleLoadMore = () => {

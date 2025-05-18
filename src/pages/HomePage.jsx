@@ -16,10 +16,10 @@ const HomePage = () => {
         style={{ backgroundImage: `url(${homeBg})` }}
       >
         <div className="mb-44 rounded">
-          <h2 className="text-6xl  font-bold mb-4">
+          <h2 className="text-6xl font-bold mb-4">
             Find your perfect rental car
           </h2>
-          <p className="text-2xl mb-10">
+          <p className="text-2xl mb-10 font-semibold">
             Reliable and budget-friendly rentals for any journey
           </p>
           <Button asChild size='lg'>

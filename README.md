@@ -1,12 +1,48 @@
-# React + Vite
+# RentalCar
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**RentalCar** is a single-page web application for browsing and booking rental cars. Users can view a catalog of available vehicles, apply filters to search by brand, price, or mileage, view detailed information about each car, and submit a booking request.
 
-Currently, two official plugins are available:
+## 🔧 Main Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Car filtering** by brand, rental price, and mileage
+- **Pagination** — load more cars with a button
+- **Car details page** with a booking form (Name, Email, Date, Comment)
+- **Error notifications** (via `iziToast`) for invalid filter inputs
+- **Responsive grid layout** for displaying car cards
 
-## Expanding the ESLint configuration
+## ⚙️ Technologies
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **React + Redux Toolkit**
+- **React Router**
+- **Axios** for API requests
+- **Tailwind CSS + shadcn/ui** for styling
+- **iziToast** for notifications
+
+## 🚀 Installation and Launch
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/Lingrode/rentalcar.git
+cd rentalcar
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Start the application:
+
+```bash
+npm start
+```
+
+4. The app will be available at: http://localhost:3000
+
+## 👨‍💻 Author
+
+Name: Illia Hrymalo
+Email: grimaloilya@gmail.com
+LinkedIn: https://www.linkedin.com/in/illia-hrymalo/
