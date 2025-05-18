@@ -43,6 +43,6 @@ npm start
 
 ## 👨‍💻 Author
 
-Name: Illia Hrymalo
-Email: grimaloilya@gmail.com
-LinkedIn: https://www.linkedin.com/in/illia-hrymalo/
+**Name:**: Illia Hrymalo
+**Email**: grimaloilya@gmail.com
+**LinkedIn**: [https://www.linkedin.com/in/illia-hrymalo/](https://www.linkedin.com/in/illia-hrymalo/)
